@@ -5,7 +5,7 @@
 #include<time.h>
 #include<random>
 #include<iostream>
-#define _USE_MATH_DEFINES
+//#define _USE_MATH_DEFINES
 std::default_random_engine generator;
 std::uniform_real_distribution<double> distr(0.0, 1.0);
 double erand48(unsigned short *X) {
@@ -91,7 +91,7 @@ extern "C" void _start() {
 #pragma omp parallel for schedule(dynamic, 1) private(r)       // OpenMP
 	for (int y = 0; y < h; y++) {                       // Loop over image rows
 		fprintf(stderr, "\rRendering (%d spp) %5.2f%%", samps * 4, 100.*y / (h - 1));
-		for (unsigned short x = 0, Xi[3] = { 0,0,y*y*y }; x < w; x++)   // Loop cols
+		for (unsigned short x = (short)0, Xi[3] = { 0,0,y*y*y }; x < w; x++)   // Loop cols
 			for (int sy = 0, i = (h - y - 1)*w + x; sy < 2; sy++)     // 2x2 subpixel rows
 				for (int sx = 0; sx < 2; sx++, r = Vec()) {        // 2x2 subpixel cols
 					for (int s = 0; s < samps; s++) {
